@@ -1,4 +1,4 @@
--- file: addons/vmstrafing/lua/autorun/client/vmstrafing.lua
+-- file: lua/autorun/client/vmstrafing.lua
 -- brief: Causes the Modern Warfare Base view models to tilt when strafing left and right
 -- copyright: Copyleft 2022 Garry's Mod Player. All rights reversed.
 
