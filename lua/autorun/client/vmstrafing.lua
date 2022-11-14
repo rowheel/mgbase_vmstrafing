@@ -5,25 +5,25 @@
 -- param: weapon is a reference to the active weapon
 -- returns: true if the active weapon can be tilted, otherwise false
 local function CanTilt(weapon)
-  return weapon.Base == "mg_base" and weapon:GetSlot() > 1
+  return weapon.Base == "mg_base" && weapon:GetSlot() > 1
 end
 
 -- param: player is a reference to the local player
 -- returns: true if the local player can lean, otherwise false
 local function CanLean(player)
-  return player:KeyDown(IN_ATTACK2) and not player:KeyDown(IN_SPEED)
+  return player:KeyDown(IN_ATTACK2) && !player:KeyDown(IN_SPEED)
 end
 
 -- param: player is a reference to the local player
--- returns: true if the local player can lean right, otherwise false
-local function CanLeanRight(player)
-  return CanLean(player) and player:KeyDown(IN_MOVERIGHT) and not player:KeyDown(IN_MOVELEFT)
+-- returns: true if the local player can strafe right, otherwise false
+local function CanStrafeRight(player)
+  return player:KeyDown(IN_MOVERIGHT) && !player:KeyDown(IN_MOVELEFT)
 end
 
 -- param: player is a reference to the local player
--- returns: true if the local player can lean left, otherwise false
-local function CanLeanLeft(player)
-  return CanLean(player) and not player:KeyDown(IN_MOVERIGHT) and player:KeyDown(IN_MOVELEFT)
+-- returns: true if the local player can strafe left, otherwise false
+local function CanStrafeLeft(player)
+  return player:KeyDown(IN_MOVELEFT) && !player:KeyDown(IN_MOVERIGHT)
 end
 
 -- brief: Tilt the weapon's view model to target angle
@@ -40,13 +40,13 @@ end
 -- brief: Causes the Modern Warfare Base view models to tilt when strafing left and right
 hook.Add("Think", "vmstrafing", function()
   if CanTilt(LocalPlayer():GetActiveWeapon()) then
-    if not CanLean(LocalPlayer()) then
+    if !CanLean(LocalPlayer()) then
       return TiltViewModel(LocalPlayer():GetActiveWeapon(), 0)
     end
-    if CanLeanRight(LocalPlayer()) then
+    if CanStrafeRight(LocalPlayer()) then
       return TiltViewModel(LocalPlayer():GetActiveWeapon(), 45)
     end
-    if CanLeanLeft(LocalPlayer()) then
+    if CanStrafeLeft(LocalPlayer()) then
       return TiltViewModel(LocalPlayer():GetActiveWeapon(), -45)
     end
   end
