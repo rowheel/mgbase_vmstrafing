@@ -31,7 +31,7 @@ end
 -- param: targetAngle indicates the target angle to approach
 local function TiltViewModel(weapon, targetAngle)
   local currentAngle = weapon.ViewModelOffsets.Aim.Angles.roll
-  if math.abs(currentAngle) < math.abs(targetAngle) then
+  if math.abs(currentAngle) != math.abs(targetAngle) then
     local roll = math.ApproachAngle(currentAngle, targetAngle, 1)
     weapon.ViewModelOffsets.Aim.Angles.roll = roll
   end
