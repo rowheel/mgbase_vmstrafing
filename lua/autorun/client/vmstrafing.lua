@@ -11,7 +11,7 @@ end
 -- Parameter player is a reference to the local player
 -- Returns true if the local player can lean, otherwise false
 local function canLean(player)
-	return player:KeyDown(IN_ATTACK2) and not player:KeyDown(IN_SPEED)
+	return player:GetActiveWeapon():GetIsAiming()
 end
 
 -- Parameter player is a reference to the local player
